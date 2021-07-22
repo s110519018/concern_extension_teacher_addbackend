@@ -1,0 +1,238 @@
+body{
+  text-align: center;
+  background: url(https://i.imgur.com/stJc4rr.png) center;
+  background-size: 200px auto;
+}
+img{
+  display: inline-block;
+  width: 55%;
+  margin-right: 6px;
+  margin-top: 8px;
+}
+h2{
+  display: inline-block;
+}
+.title {
+  display: flex;        
+  align-items: center;
+  justify-content: center;
+}
+input{
+  border:1px solid transparent;
+  padding: 4px 2px;
+  border-radius: 40px;
+  color: #82A098;
+}
+input::placeholder {
+  color: #82A098;
+  padding-left: 5px;
+}
+input:focus{
+  outline: none;
+}
+button{
+  background-color: #82A098;
+  color: #FAF9F9;
+  border:0;
+  border-radius: 100px;
+  font-weight: bold;
+  padding: 4px 8px;
+  margin-top: 12px;
+  outline: 0;
+  cursor: pointer;
+}
+button:focus{
+  background-color: #FAF9F9;
+  color: #82A098;
+}
+#loading i,#loading_backend i{
+  margin-top: 12px;
+  font-size: 40px;
+  color: #82A098;
+}
+/* 課程狀態 */
+#is_classing,#not_classing,#open_classroom,#rest_time,#close_classroom{
+  display: none;
+  margin-top: 8px;
+}
+.talk-bubble{
+  position: relative;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #FAF9F9;
+  width: 100px;
+  height: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 12px auto;
+  color: #82A098;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 60px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.talk-bubble::after{
+  position: absolute;
+  content: '';
+  width: 20px;
+  height: 10px;
+  background-color: #FAF9F9;
+  left: 30%;
+  bottom: 6px;
+  transform: rotate(60deg);
+}
+.talk-bubble::before{
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 20px 0 0 20px;
+  border-color: transparent transparent transparent #FAF9F9;
+  left: 20%;
+  bottom: -5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  transform: rotate(-30deg);
+}
+#reload{
+  background-color: transparent;
+  color: rgb(155, 152, 152);
+  border:0;
+  border-radius: 0px;
+  font-weight: normal;
+  padding: 0px;
+  margin-top: 15px;
+  outline: 0;
+  cursor: pointer;
+  font-size:12px;
+  transform: scale(0.916);/*11/12=0.916, font-size:11px*/
+  text-decoration: underline;
+}
+/* 後台區 */
+#backend{
+  margin: 0 auto;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  border-top: rgba(0, 0, 0, 0.29) 1px solid;
+}
+#backend p{
+  color: #747474;
+  font-size: 12px;
+  font-weight: bold;
+  transform: scale(0.916);/*18/12=0.916, font-size:11px*/
+}
+#backend input{
+  width: 140px;
+}
+#backend input::placeholder {
+  text-align: center;
+}
+#backend select{
+  width: 130px;
+  height: 20px;
+  border-radius: 100px;
+  color: #747474;
+  padding: 2px;
+  padding-left: 10px;
+  border:0;
+  outline: 0;
+  /* 移除箭頭樣式 */
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  background: url("https://i.imgur.com/RNQb0pY.png") no-repeat right center transparent;
+  background-size: 20px;
+  background-color: #FAF9F9;
+}
+#backend option{
+  width: 130px;
+  padding: 2px;
+  color: #747474;
+  font-size: 12px;
+  transform: scale(0.916);/*18/12=0.916, font-size:11px*/
+}
+#backend button{
+  background-color: #8BCCBB;
+  margin-top: 8px;
+  font-size: 12px;
+}
+#backend button:focus{
+  background-color: #FAF9F9;
+  color: #82A098;
+}
+#selectClass_backend_page p,#record_backend_page p{
+  margin-bottom: 0px;
+}
+.courseName{
+  margin: 0 auto;
+  margin-top: 4px;
+  width: 140px;
+  height: 100%;
+  color: #646464;
+  font-weight: bold;
+  padding: 4px 8px;
+  background-color: #FAF9F9;
+  border-radius: 100px;
+  margin-bottom: 30px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 20px;
+  margin-top: 4px;
+  margin-bottom: 20px;
+}
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 30px;
+  left: 0px;
+  bottom: 0px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: #8BCCBB;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #8BCCBB;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(30px);
+  -ms-transform: translateX(30px);
+  transform: translateX(30px);
+}
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 40px;
+}
+#backend,#open_backend_page,#login_backend_page,#selectClass_backend_page,#addnewCourse_backend_page,#record_backend_page{
+  display: none;
+}
+

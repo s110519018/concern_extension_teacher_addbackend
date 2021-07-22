@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【疫距數得 exCODItension】教師端統計</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="chart.css">
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/g8JWscP.png" alt="">
+        <h1 id="sayhello">你好，        老師！</h1>
+    </header>
+    <div class="container">
+        <h1>專注度排行榜</h1>
+        <div class="rank">
+            <i id="loading_rank" class="fa fa-spinner fa-spin"></i>
+            <div id="aveConcernRank">
+                專注平均排行
+                <div class="rank_block">
+                    <!-- 排名資料 -->
+                </div>
+            </div>
+            <div id="bestLastedRank">
+                持續專注時間排行
+                <div class="rank_block">
+                    <!-- 排名資料 -->
+                </div>
+            </div>
+            <div id="concernPercentageRank">
+                專注百分比排行
+                <div class="rank_block">
+                    <!-- 排名資料 -->
+                </div>
+            </div>
+        </div>
+        <h1>全班資訊</h1>
+        <div class="teacher">
+            <div class="setting">
+                <div class="slidecontainer">
+                    計算時間區隔調整 （單位：分）
+                    <input type="range" min="1" max="10" value="1" step="1" list="tickmarks" id="ClassAveRange">
+                    <datalist id="tickmarks">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </datalist>
+                </div>
+                <a id="download_class">下載</a>
+            </div>
+            <div class="ave">
+                <i id="loading_class_ave" class="fa fa-spinner fa-spin"></i>
+                <canvas id="drawaveChart"></canvas>
+            </div>
+        </div>
+        <div class="teacher">
+            <div class="setting">
+                <div class="slidecontainer">
+                    計算時間區隔調整 （單位：分）
+                    <input type="range" min="1" max="10" value="1" step="1" list="tickmarks" id="ClassCountRange">
+                    <datalist id="tickmarks">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </datalist>
+                </div>
+                <a id="download_class_count">下載</a>
+            </div>
+            <div class="count">
+                <i id="loading_class_count" class="fa fa-spinner fa-spin"></i>
+                <canvas id="drawcountChart"></canvas>
+            </div>
+        </div>
+        <h1>學生資訊</h1>
+        <div class="student">
+            <div class="student_up">
+                <input type="search" class="light-table-filter" data-table="order-table" placeholder="搜尋姓名或學號....">
+                <div class="setting">
+                    <div class="slidecontainer">
+                        計算時間區隔調整 （單位：分）
+                        <input type="range" min="1" max="10" value="1" step="1" list="tickmarks" id="StudentRange">
+                        <datalist id="tickmarks">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </datalist>
+                    </div>
+                    <a id="download_student">下載</a>
+                </div>
+            </div>
+            <div class="classList">
+                <i id="loading_classList" class="fa fa-spinner fa-spin"></i>
+                <table class="order-table" >
+                  <thead>
+                    <tr>
+                      <th>學生選單</th>
+                    </tr>
+                  </thead>
+                  <tbody id="classlist">
+                      <!-- 學生資訊 -->
+                  </tbody>
+                </table>
+                <div class="student_image" id="student_image">
+                    <i id="loading_person" class="fa fa-spinner fa-spin"></i> 
+                    <ul>
+                        <li>
+                            參與課程比例
+                            <div id="attendTimePercentage">  %</div>
+                        </li>
+                        <li>
+                            專注百分比
+                            <div id="concernPercentage">  %</div>
+                        </li>
+                        <li>
+                            平均專注數值
+                            <div id="aveConcern">  </div>
+                            <div id="levelConcern">  </div>
+                        </li>
+                        <li>
+                            最長專注時間
+                            <div id="bestLasted">  </div>
+                        </li>
+                    </ul>    
+                    <div class="student_chart">
+                        <canvas id="drawstudentChart"></canvas>
+                    </div>      
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 id="error">error錯誤，請按f5重新載入</h1>
+    <script src="chart.js"></script>
+</body>
+</html>

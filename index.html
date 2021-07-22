@@ -1,0 +1,99 @@
+<!doctype html>
+<html style="width:200px;">
+  <head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>疫距數得</title>
+    <meta charset="UTF-8">
+  </head>
+
+  <body id="body">
+    <div class="title">
+      <img src="https://i.imgur.com/fHm1vzK.png" alt="">
+    </div>
+    <p id="loading"><i class="fas fa-spinner fa-spin"></i></p>
+    <!-- 課程狀態 -->
+    <div id="open_classroom">
+      <input type="text" id="name" placeholder="請輸入您的全名">
+      <button id="open">開啟教室</button>
+    </div>
+    <div id="not_classing">
+      <div class="talk-bubble">
+        課程未開始...
+      </div>
+      <button id="start">開始課程</button>
+    </div>
+    <div id="is_classing">
+      <div class="talk-bubble">
+        上課中...
+      </div>
+      <button id="rest_start">下課休息</button>
+      <button id="end">結束課程</button>
+    </div>
+    <div id="rest_time">
+      <div class="talk-bubble">
+        下課中...
+      </div>
+      <button id="rest_end">繼續上課</button>
+    </div>
+    <div id="close_classroom">
+      <div class="talk-bubble">
+        課程結束
+      </div>
+      <button id="close"><span class="material-icons">call_end</span></button>
+    </div>
+    <button id="reload">若有問題，請關閉網頁再點此重載</button>
+    <!-- 後臺管理系統 -->
+    <div id="backend">
+      <p id="loading_backend"><i class="fas fa-spinner fa-spin"></i></p>
+      <div id="open_backend_page">
+        <!-- 開啟後台管理功能 -->
+        <button id="open_backend">開啟後台管理功能</button>
+        <p>提供額外課程紀錄及點名系統</p>
+      </div>
+      <div id="login_backend_page">
+        <!-- 登入後台 -->
+        <p>開啟後台管理功能</p>
+        <input type="text" id="password" placeholder="輸入教師ID">
+        <button id="login_backend">進入</button>
+      </div>
+      <div id="selectClass_backend_page">
+        <!-- 選擇課程 -->
+        <p>連結後台成功</p>
+        <select name="selectClass" id="selectClass">
+          <option value=""disabled selected hidden>請選擇課堂名稱</option>
+        </select>
+        <button id="addClass_backend">+</button>
+        <button id="selectClass_backend">進入</button>
+      </div>
+      <div id="addnewCourse_backend_page">
+        <!-- 新增課程 -->
+        <p>新增課程</p>
+        <input type="text" id="newCourse" placeholder="輸入新課程名稱">
+        <button id="backselect_backend">返回</button>
+        <button id="addnewCourse_backend">新增</button>
+      </div>
+      <div id="record_backend_page">
+        <!-- 課程紀錄中 -->
+        <p>課程紀錄中...</p>
+        <div class="courseName">
+          
+        </div>
+        <p>自動允許課程已登錄學生<br>
+          加入GoogleMeet教室</p>
+        <!-- 開關 -->
+        <label class="switch">
+          <input id="togBtn"type="checkbox">
+          <span class="slider round"></span>
+        </label>
+        <!-- 開課程管理網頁 -->
+        <p>觀看課程紀錄及使用點名系統</p>
+        <button id="webpage_backend">進入管理頁面</button>
+      </div>
+    </div>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./js/script.js"></script>
+  </body>
+</html>
