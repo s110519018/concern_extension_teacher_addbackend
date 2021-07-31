@@ -30,14 +30,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
     else if(request.msg === "openBackendweb"){
         chrome.windows.create({
-            url: "後台管理網頁.html?TeacherDataID=" + request.data.TeacherDataID+"&CourseDataID="+request.data.CourseDataID+"&ClassroomDataID="+request.data.ClassroomDataID,
-            type: "popup",
-            width: 1000,
+            url: "https://concern-frontend-tau.vercel.app?teacherDataID=" + request.data.TeacherDataID+"&courseDataID="+request.data.CourseDataID+"&classroomDataID="+request.data.ClassroomDataID,
+            type: "normal",
+            width: 1280,
             height: 800,
         }, function (newWindow) {
             console.log(newWindow);
         });
-        console.log("後台管理網頁.html?TeacherDataID=" + request.data.TeacherDataID+"&CourseDataID="+request.data.CourseDataID+"&ClassroomDataID="+request.data.ClassroomDataID);
+        console.log("https://concern-frontend-tau.vercel.app?teacherDataID=" + request.data.TeacherDataID+"&courseDataID="+request.data.CourseDataID+"&classroomDataID="+request.data.ClassroomDataID);
     }
     else{
         console.log(request.isClassing);
