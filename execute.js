@@ -265,6 +265,9 @@ var teacherDataID;
 var courseDataID;
 var courses;
 var autoadmin;
+//後台登入資料
+var teacher_name;
+var teacher_id;
 const onMessage = (message) => {
   switch (message.action) {
     case 'OPEN':
@@ -285,8 +288,11 @@ const onMessage = (message) => {
     case 'CLOSE':
       close();
       break;
+    case 'SURE':
+      sure(message.teacher_name,message.teacher_id);
+      break;
     case 'LOGIN':
-      login(message.password);
+      login();
       break;
     case 'ADDNEWCOURSE':
       addnewCourse(message.newCourse);
@@ -532,37 +538,40 @@ function close(){
     }
   });
 }
-
-function login(teacherID){
-  if (teacherID == '') {
-    alert("請輸入ID!");
+function sure(teachername,teacherid){
+  chrome.runtime.sendMessage({isClassing:6});
+  if (teachername == ''||teacherid == '') {
+    alert("請輸入資料!");
   }
-  else {
-    chrome.runtime.sendMessage({isClassing:6});
-    $.ajax({
-      type:"POST",
-      contentType: 'application/json',
-      dataType: "json",
-      url: "https://concern-backend-202106.herokuapp.com/api/teacher/teacherRegisterLogin",
-      data: JSON.stringify({
-        "teacherName": teacherName,
-        "teacherID":teacherID
-      }),
-      success: function(data) {
-        console.log("成功登入");
-        teacherDataID = data.teacherDataID ;
-        courses=data.courses;
-        chrome.runtime.sendMessage({isClassing:8,courses:courses});
-        // alert('登入成功！您輸入的姓名是：'+teacherName+'您輸入的ID是：'+teacherID);
-      },
-      error: function(XMLHttpRequest){
-        //ID和老師姓名搭不起來
-        console.log(XMLHttpRequest.responseText);
-        alert('您輸入的姓名是：'+teacherName+' \n您輸入的ID是：'+teacherID+' \n若是姓名輸入錯誤，請關閉網頁並重新載入擴充套件， \n若是輸入錯誤的ID，請重新輸入正確ID。');
-        chrome.runtime.sendMessage({isClassing:7});
-      }
-    });
+  else{
+    teacher_name=teachername;
+    teacher_id=teacherid;
+    chrome.runtime.sendMessage({isClassing:11,checkteacherName:teacher_name,checkteacherID:teacher_id});
   }
+}
+function login(){
+  chrome.runtime.sendMessage({isClassing:6});
+  $.ajax({
+    type:"POST",
+    contentType: 'application/json',
+    dataType: "json",
+    url: "https://concern-backend-202106.herokuapp.com/api/teacher/teacherRegisterLogin",
+    data: JSON.stringify({
+      "teacherName": teacher_name,
+      "teacherID":teacher_id
+    }),
+    success: function(data) {
+      console.log("成功登入");
+      teacherDataID = data.teacherDataID ;
+      courses=data.courses;
+      chrome.runtime.sendMessage({isClassing:8,courses:courses});
+    },
+    error: function(XMLHttpRequest){
+      //告知登入失敗並提供代碼
+      alert('登入失敗，代碼'+XMLHttpRequest.status+'請重新輸入資料！');
+      chrome.runtime.sendMessage({isClassing:7});
+    }
+  });
 }
 function addnewCourse(courseName){
   if (courseName == '') {
@@ -629,8 +638,8 @@ function selectClass(courseDataID_function){
           chrome.runtime.sendMessage({isClassing:1});
         }
         else{
-          //尚無此堂課程!或無法重複連結
-          alert(XMLHttpRequest.responseText);
+          //尚無此堂課程或無法重複連結
+          alert('代碼:'+XMLHttpRequest.status+"尚無此堂課程或無法重複連結");
           chrome.runtime.sendMessage({isClassing:8});
         }
       }

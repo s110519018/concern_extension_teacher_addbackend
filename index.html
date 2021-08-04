@@ -55,12 +55,23 @@
       <div id="login_backend_page">
         <!-- 登入後台 -->
         <p>開啟後台管理功能</p>
-        <input type="text" id="password" placeholder="輸入教師ID">
-        <button id="login_backend">進入</button>
+        <input type="text" id="teacher_name" placeholder="輸入教師名稱">
+        <input type="text" id="teacher_id" placeholder="輸入教師ID">
+        <button id="sure_backend">進入</button>
+      </div>
+      <div id="check_backend_page">
+        <!-- 確認資料 -->
+        <p>請確認資料是否正確</p>
+        <p>教師名稱</p>
+        <div class="checkteacherName"></div>
+        <p>教師ID</p>
+        <div class="checkteacherID"></div>
+        <button id="modify_backend">修改</button>
+        <button id="login_backend">確定</button>
       </div>
       <div id="selectClass_backend_page">
         <!-- 選擇課程 -->
-        <p>連結後台成功</p>
+        <p>連結成功，請選擇課堂</p>
         <select name="selectClass" id="selectClass">
           <option value=""disabled selected hidden>請選擇課堂名稱</option>
         </select>
@@ -77,9 +88,7 @@
       <div id="record_backend_page">
         <!-- 課程紀錄中 -->
         <p>課程紀錄中...</p>
-        <div class="courseName">
-          
-        </div>
+        <div class="courseName"></div>
         <p>自動允許課程已登錄學生<br>
           加入GoogleMeet教室</p>
         <!-- 開關 -->

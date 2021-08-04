@@ -176,6 +176,21 @@ button:focus{
   border-radius: 100px;
   margin-bottom: 30px;
 }
+#teacher_name{
+  margin-bottom: 4px;
+}
+.checkteacherName,.checkteacherID{
+  margin: 0 auto;
+  margin-top: 4px;
+  width: 140px;
+  height: 100%;
+  color: #646464;
+  font-weight: bold;
+  padding: 4px 8px;
+  background-color: #FAF9F9;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
 
 /* The switch - the box around the slider */
 .switch {
@@ -232,7 +247,7 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 40px;
 }
-#backend,#open_backend_page,#login_backend_page,#selectClass_backend_page,#addnewCourse_backend_page,#record_backend_page{
+#backend,#open_backend_page,#login_backend_page,#check_backend_page,#selectClass_backend_page,#addnewCourse_backend_page,#record_backend_page{
   display: none;
 }
 

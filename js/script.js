@@ -33,10 +33,15 @@ var getSelectedTab = (tab) => {
     chrome.runtime.reload();
   });
   //後台區
+  document.getElementById('sure_backend').addEventListener('click', () => {
+    //輸入資料登入後台
+    var teacher_name = document.getElementById("teacher_name");
+    var teacher_id = document.getElementById("teacher_id");
+    sendMessage({ action: 'SURE' ,teacher_name:teacher_name.value, teacher_id: teacher_id.value});
+  });
   document.getElementById('login_backend').addEventListener('click', () => {
-    //開啟教室
-    var password = document.getElementById("password");
-    sendMessage({ action: 'LOGIN' , password: password.value});
+    //確認資料正確登入
+    sendMessage({ action: 'LOGIN'});
   });
   document.getElementById('addnewCourse_backend').addEventListener('click', () => {
     //新增課程
@@ -80,6 +85,11 @@ document.getElementById('addClass_backend').addEventListener('click', () => {
   chrome.runtime.sendMessage({isClassing: 9}); 
   document.getElementById('newCourse').value = '';
 });
+//修改資料只需切換頁面，傳值至backgroundscript
+document.getElementById('modify_backend').addEventListener('click', () => {
+  chrome.runtime.sendMessage({isClassing: 6}); 
+  chrome.runtime.sendMessage({isClassing: 7}); 
+});
 //新增課程的返回按鈕只需切換頁面，傳值至backgroundscript
 document.getElementById('backselect_backend').addEventListener('click', () => {
   chrome.runtime.sendMessage({isClassing: 6}); 
@@ -120,6 +130,7 @@ chrome.runtime.onMessage.addListener(
           //後臺功能全部關掉
           document.getElementById('open_backend_page').style.display='none';
           document.getElementById('login_backend_page').style.display='none';
+          document.getElementById('check_backend_page').style.display='none';
           document.getElementById('selectClass_backend_page').style.display='none';
           document.getElementById('addnewCourse_backend_page').style.display='none';
           document.getElementById('record_backend_page').style.display='none';
@@ -137,6 +148,7 @@ chrome.runtime.onMessage.addListener(
           //開啟後台管理功能
           document.getElementById('open_backend_page').style.display='block';
           document.getElementById('login_backend_page').style.display='none';
+          document.getElementById('check_backend_page').style.display='none';
           document.getElementById('selectClass_backend_page').style.display='none';
           document.getElementById('addnewCourse_backend_page').style.display='none';
           document.getElementById('record_backend_page').style.display='none';
@@ -152,6 +164,12 @@ chrome.runtime.onMessage.addListener(
           document.getElementById('is_classing').style.display='block';
           //後台區
           document.getElementById('backend').style.display='block';
+          document.getElementById('open_backend_page').style.display='none';
+          document.getElementById('login_backend_page').style.display='none';
+          document.getElementById('check_backend_page').style.display='none';
+          document.getElementById('selectClass_backend_page').style.display='none';
+          document.getElementById('addnewCourse_backend_page').style.display='none';
+          document.getElementById('record_backend_page').style.display='none';
           document.getElementById(request.data.BackendStatus).style.display='block';
           document.getElementById('togBtn').checked = request.data.togBtnStatus;
           chrome.runtime.sendMessage({msg: 'ClassroomStatus',
@@ -165,6 +183,12 @@ chrome.runtime.onMessage.addListener(
           document.getElementById('rest_time').style.display='block';
           //後台區
           document.getElementById('backend').style.display='block';
+          document.getElementById('open_backend_page').style.display='none';
+          document.getElementById('login_backend_page').style.display='none';
+          document.getElementById('check_backend_page').style.display='none';
+          document.getElementById('selectClass_backend_page').style.display='none';
+          document.getElementById('addnewCourse_backend_page').style.display='none';
+          document.getElementById('record_backend_page').style.display='none';
           document.getElementById(request.data.BackendStatus).style.display='block';
           document.getElementById('togBtn').checked = request.data.togBtnStatus;
           chrome.runtime.sendMessage({msg: 'ClassroomStatus',
@@ -179,6 +203,12 @@ chrome.runtime.onMessage.addListener(
           document.getElementById('close_classroom').style.display='block';
           //後台區
           document.getElementById('backend').style.display='block';
+          document.getElementById('open_backend_page').style.display='none';
+          document.getElementById('login_backend_page').style.display='none';
+          document.getElementById('check_backend_page').style.display='none';
+          document.getElementById('selectClass_backend_page').style.display='none';
+          document.getElementById('addnewCourse_backend_page').style.display='none';
+          document.getElementById('record_backend_page').style.display='none';
           document.getElementById(request.data.BackendStatus).style.display='block';
           document.getElementById('togBtn').checked = request.data.togBtnStatus;
           chrome.runtime.sendMessage({msg: 'ClassroomStatus',
@@ -193,11 +223,14 @@ chrome.runtime.onMessage.addListener(
           document.getElementById('loading_backend').style.display='block';
           document.getElementById('open_backend_page').style.display='none';
           document.getElementById('login_backend_page').style.display='none';
+          document.getElementById('check_backend_page').style.display='none';
           document.getElementById('selectClass_backend_page').style.display='none';
           document.getElementById('addnewCourse_backend_page').style.display='none';
           document.getElementById('record_backend_page').style.display='none';
           break;
         case 7:
+          //登入後台
+          document.getElementById('check_backend_page').style.display='none';
           document.getElementById('open_backend_page').style.display='none';
           document.getElementById('backend').style.display='block';
           document.getElementById('login_backend_page').style.display='block';
@@ -209,6 +242,7 @@ chrome.runtime.onMessage.addListener(
           }}); 
           break;
         case 8:
+          document.getElementById('check_backend_page').style.display='none';
           document.getElementById('addnewCourse_backend_page').style.display='none';
           document.getElementById('login_backend_page').style.display='none';
           document.getElementById('backend').style.display='block';
@@ -246,6 +280,18 @@ chrome.runtime.onMessage.addListener(
             BackendStatus: 'record_backend_page'
           }}); 
           break;
+        case 11:
+          //確認資料再登入
+          document.getElementById('login_backend_page').style.display='none';
+          document.getElementById('backend').style.display='block';
+          document.getElementById('check_backend_page').style.display='block';
+          // 前台區
+          document.getElementById(request.data.ClassroomStatus).style.display='block';
+          chrome.runtime.sendMessage({msg: 'BackendStatus',
+          data:{
+            BackendStatus: 'check_backend_page'
+          }}); 
+          break;
       }
       //request.data.courses產生課程清單
       var ClassArray = []; 
@@ -261,5 +307,8 @@ chrome.runtime.onMessage.addListener(
       });
       //課程名稱
       $('.courseName').text(request.data.courseName);
+      //確認名稱和ID
+      $('.checkteacherName').text(request.data.checkteacherName);
+      $('.checkteacherID').text(request.data.checkteacherID);
     } 
 });

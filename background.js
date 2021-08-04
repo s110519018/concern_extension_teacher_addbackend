@@ -4,6 +4,8 @@ var BackendStatus='open_backend_page';
 var togBtnStatus=false;
 var courses=[{}];
 var courseName="";
+var checkteacherName="";
+var checkteacherID="";
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.msg === "createWindow") {
         chrome.windows.create({
@@ -50,6 +52,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             console.log(request.courseName);
             courseName=request.courseName;
         }
+        if(request.checkteacherName!=undefined){
+            console.log(request.checkteacherName);
+            checkteacherName=request.checkteacherName;
+        }
+        if(request.checkteacherID!=undefined){
+            console.log(request.checkteacherID);
+            checkteacherID=request.checkteacherID;
+        }
     }
 });
 
@@ -62,7 +72,9 @@ window.setInterval(function(){
             BackendStatus: BackendStatus,
             togBtnStatus:togBtnStatus,
             courses:courses,
-            courseName:courseName
+            courseName:courseName,
+            checkteacherName:checkteacherName,
+            checkteacherID:checkteacherID
         }
     }); 
 }, 500);

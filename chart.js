@@ -382,33 +382,33 @@ function drawcountChart_class(times,dataCount,concentratedCount,normalCount,unco
     datasets: [
     {
       label: "專心",
-      backgroundColor: '#00CC66',
+      backgroundColor: 'rgba(0,204,102,0.3)',
       borderColor: '#00CC66',
       data: concentratedCount,
-      fill: false,
+      fill: true,
       tension: 0.1
     },
     {
       label: "普通",
-      backgroundColor: '#ffff00',
+      backgroundColor: 'rgba(255,255,0,0.3)',
       borderColor: '#ffff00',
       data: normalCount,
-      fill: false,
+      fill: true,
       tension: 0.1
     },
     {
       label: "不專心",
-      backgroundColor: '#FE5F55',
+      backgroundColor: 'rgba(254,95,85,0.3)',
       borderColor: '#FE5F55',
       data: unconcentratedCount,
-      fill: false,
+      fill: true,
       tension: 0.1
     },{
       label: "總人數",
-      backgroundColor: '#82A098',
+      backgroundColor: 'rgba(130,160,152,0.3)',
       borderColor: '#82A098',
       data: dataCount,
-      fill: false,
+      fill: true,
       tension: 0.1
     }
   ]
