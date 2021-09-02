@@ -3,6 +3,18 @@ var gstatic_script = document.createElement('script');
 gstatic_script.setAttribute('src','https://www.gstatic.com/charts/loader.js');
 document.head.appendChild(gstatic_script);
 
+var axios = document.createElement('script');
+axios.setAttribute('src','https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js');
+axios.setAttribute('crossorigin','anonymous');
+document.head.appendChild(axios);
+
+
+var jquery = document.createElement('script');
+jquery.setAttribute('src','https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js');
+jquery.setAttribute('crossorigin','anonymous');
+document.head.appendChild(jquery);
+
+
 var body=document.getElementsByTagName('body')[0];
 var insert_script = document.createElement("script");
 insert_script.innerHTML = `var red_c=0; var green_c=0; var yellow_c=0;
@@ -17,18 +29,19 @@ window.addEventListener("message",function(me) {
         classroomDataID_meet=me.data.classroomDataID;
         console.log(classroomDataID_meet);
         setTimeout_test = setTimeout(StudentData, 1000);
-        $("#resttime_div").hide();
+        document.getElementById("resttime_div").style.display = "none";
       }
       else if(me.data.isClassing=="rest"){
         isClassing_meet=me.data.isClassing;
-        $("#resttime_div").show();
+        console.log(isClassing_meet);
+        document.getElementById("resttime_div").style.display = "block";
         document.querySelectorAll(".koV58").forEach(function(each_student){
           each_student.style.border = "8px solid transparent";
         });
       }
       else if(me.data.isClassing=="end"){
         isClassing_meet=me.data.isClassing;
-        $("#resttime_div").hide();
+        document.getElementById("resttime_div").style.display = "none";
         document.querySelectorAll(".koV58").forEach(function(each_student){
           each_student.style.border = "8px solid transparent";
         });
@@ -37,8 +50,8 @@ window.addEventListener("message",function(me) {
 });
 
 var StudentData = () => {
+  clearTimeout(setTimeout_test);
   if(isClassing_meet=="start"){
-    const url = window.location.pathname.substr(1);
     $.ajax({
       type: "POST",
       contentType: "application/json",
@@ -48,7 +61,7 @@ var StudentData = () => {
         "classroomDataID": classroomDataID_meet
       }),
       success: function (data) {
-        if(isClassing_meet=="start"){
+        if(isClassing_meet == "start"){
           calltest(data);
         }
         else{
@@ -56,11 +69,12 @@ var StudentData = () => {
             each_student.style.border = "8px solid transparent";
           });
         }
+        setTimeout_test = setTimeout(StudentData, 1000);
       },
       error: function (XMLHttpRequest) {
         console.log("error"+XMLHttpRequest.responseText);
-        alert(XMLHttpRequest.responseText);
         window.postMessage({status: XMLHttpRequest.status});
+        setTimeout_test = setTimeout(StudentData, 1000);
       }
     });
   }
@@ -69,7 +83,6 @@ var StudentData = () => {
 
 
 function calltest(data) {
-  clearTimeout(setTimeout_test);
   // console.log("calltest進入");
   // console.log("data"+data+typeof(data));
 
@@ -113,7 +126,6 @@ function calltest(data) {
   });
   google.charts.load("current", {packages:["corechart"]});
   google.charts.setOnLoadCallback(drawChart);
-  setTimeout_test = setTimeout(StudentData, 1000);
 }
 
 function drawChart() {
@@ -192,12 +204,10 @@ function hide(){
 var barchart = document.createElement('div');
 barchart.innerHTML=`
 <div id="barchart" class="barchart">
-  <div style="position: absolute;right: 20px;top: 20px;cursor: pointer;">
-    <div style="width: 50px;height: 50px;z-index:999999999;" id="hide">
-      <svg width="30" height="30" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 2.14275L12.857 0L7.5 5.35725L2.14275 0L0 2.14275L5.357 7.5L0 12.8573L2.14275 15L7.5 9.64275L12.857 15L15 12.8573L9.6425 7.5L15 2.14275Z" fill="#E5E5E5"/></svg>
-    </div>
+  <div style="position: absolute;right: 20px;top: 20px;cursor: pointer;width: 50px;height: 50px;z-index:999999999;" id="hide">
+    <svg width="30" height="30" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 2.14275L12.857 0L7.5 5.35725L2.14275 0L0 2.14275L5.357 7.5L0 12.8573L2.14275 15L7.5 9.64275L12.857 15L15 12.8573L9.6425 7.5L15 2.14275Z" fill="#E5E5E5"/></svg>
   </div>
-<div id="barchart_values" style="display:flex;align-items: center;justify-content: center;width: auto; height: 300px;"></div>
+  <div id="barchart_values" style="display:flex;align-items: center;justify-content: center;width: auto; height: 300px;margin-bottom: -30px;"></div>
 </div>
 <div style="z-index:150;position: fixed;right: 20px;bottom: 60px;cursor: pointer;" id="show">
   <svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="37.5" cy="37.5" r="35" fill="#5C5A5B" stroke="#35373A" stroke-width="5"/><path d="M55.0072 55.5723V23.2681H43.2602V55.5723H37.3867V35.0151H25.6397V55.5723H21.2346V17.3946H18.2979V55.5723C18.2979 56.3512 18.6073 57.0981 19.158 57.6489C19.7088 58.1996 20.4557 58.509 21.2346 58.509H59.4123V55.5723H55.0072ZM34.45 55.5723H28.5765V37.9518H34.45V55.5723ZM52.0704 55.5723H46.1969V26.2048H52.0704V55.5723Z" fill="white"/></svg>
@@ -213,13 +223,14 @@ barchart_css.innerHTML =`
   z-index:150; 
   position: fixed;  
   right: 100px;  
-  bottom: 150px;  
+  bottom: 100px;  
   background-color: rgba(0, 0, 0, 0.5);  
   transform: scale(0);  
   opacity:0;  
   transform-origin: bottom right;
 }
 .show{  
+  height: 300px;
   -webkit-transition: 1s;  
   -moz-transition: 1s;  
   -ms-transition: 1s;  
@@ -364,11 +375,11 @@ function start(){
     }),
     success: function(data) {
         console.log(data);
-        window.postMessage({isClassing:"start",classroomDataID:classroomDataID});
-        chrome.runtime.sendMessage({isClassing:3});
         body.appendChild(barchart_css);
         body.appendChild(barchart);
         body.appendChild(insert_script);
+        window.postMessage({isClassing:"start",classroomDataID:classroomDataID});
+        chrome.runtime.sendMessage({isClassing:3});
         if(document.querySelector('.U26fgb.JRY2Pb.mUbCce.kpROve.GaONte.Qwoy0d.ediA8b.vzpHY.M9Bg4d')!=null){
           document.querySelector('.U26fgb.JRY2Pb.mUbCce.kpROve.GaONte.Qwoy0d.ediA8b.vzpHY.M9Bg4d').setAttribute('aria-disabled', true);
           document.querySelector('.U26fgb.JRY2Pb.mUbCce.kpROve.GaONte.Qwoy0d.ediA8b.vzpHY.M9Bg4d').setAttribute('data-tooltip', "請透過疫距數得結束課程");

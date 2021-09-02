@@ -32,14 +32,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
     else if(request.msg === "openBackendweb"){
         chrome.windows.create({
-            url: "https://concern-frontend-tau.vercel.app?teacherDataID=" + request.data.TeacherDataID+"&courseDataID="+request.data.CourseDataID+"&classroomDataID="+request.data.ClassroomDataID,
+            url: "https://concern-frontend-khaki.vercel.app?teacherDataID=" + request.data.TeacherDataID+"&courseDataID="+request.data.CourseDataID+"&classroomDataID="+request.data.ClassroomDataID,
             type: "normal",
             width: 1280,
             height: 800,
         }, function (newWindow) {
             console.log(newWindow);
         });
-        console.log("https://concern-frontend-tau.vercel.app?teacherDataID=" + request.data.TeacherDataID+"&courseDataID="+request.data.CourseDataID+"&classroomDataID="+request.data.ClassroomDataID);
+        console.log("https://concern-frontend-khaki.vercel.app?teacherDataID=" + request.data.TeacherDataID+"&courseDataID="+request.data.CourseDataID+"&classroomDataID="+request.data.ClassroomDataID);
     }
     else{
         console.log(request.isClassing);
