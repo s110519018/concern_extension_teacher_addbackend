@@ -190,6 +190,8 @@ button:focus{
   background-color: #FAF9F9;
   border-radius: 100px;
   margin-bottom: 10px;
+  text-align: center;
+  word-break: break-all;
 }
 
 /* The switch - the box around the slider */
